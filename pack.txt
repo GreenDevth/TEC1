@@ -1,0 +1,5 @@
+#spawnitem BP_Weapon_MK18 1
+#spawnitem BP_Magazine_M16 3
+#spawnitem Cal_5_56x45mm_Ammobox 3
+#spawnitem BP_WeaponSuppressor_MK18 1
+#spawnitem BP_WeaponSights_RedDot_CA401B 1
