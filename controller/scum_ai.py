@@ -1,11 +1,14 @@
-from ast import While
 import time
+
 import pyautogui as ai
 import pygetwindow as gw
-from mysql.connector import MySQLConnection, Error
+import pandas as pd
+import pyperclip
+
 from database.db_config import read_db_config
-from database.Store import check_queue, get_pack
+
 db = read_db_config()
+
 
 def start_game():
     time.sleep(1)
@@ -59,6 +62,7 @@ def goto_home():
     msg = "โดรนมาประจำตำแหน่งเริ่มต้นเรียบร้อย"
     return msg.strip()
 
+
 def fixed_lost():
     time.sleep(1)
     ai.moveTo(x=315, y=206)
@@ -100,15 +104,39 @@ def cmd(txt_command):
     msg = str(txt_command)
     return msg.strip()
 
-# def checkout(order, steam_id):
-#     while True:
-#         check = check_queue()
-#         if check != 0:
-#             time.sleep(1)
-#             data = get_pack(order)
-#             spawn = data.split(',')
-#             for x in spawn:
-#                 time.sleep(0.5)
-#                 ai.
+
+def listplayers():
+    time.sleep(0.5)
+    ai.moveTo(x=315, y=206)
+    ai.click()
+    time.sleep(0.5)
+    ai.write('#listplayers true')
+    time.sleep(0.5)
+    ai.press('enter')
+    time.sleep(0.5)
+    txt = pyperclip.paste()
+    df = pd.read_clipboard(txt)
+    index = df.index
+    number_of_rows = len(index) - 1
+    text = df.to_string(index=False)
+    msg = '```{}\n\n==================================================\n' \
+          'Total {} player and 1 Drone```'.format(text, number_of_rows)
+    return msg.strip()
 
 
+def countplayers():
+    time.sleep(0.5)
+    ai.moveTo(x=315, y=206)
+    ai.click()
+    time.sleep(0.5)
+    ai.write('#listplayers true')
+    time.sleep(0.5)
+    ai.press('enter')
+    time.sleep(0.5)
+    txt = pyperclip.paste()
+    df = pd.read_clipboard(txt)
+    index = df.index
+    number_of_rows = len(index) - 1
+    text = df.to_string(index=False)
+    msg = "ขณะนี้มีผู้เล่นออนไลน์ ทั้งหมด **{}** คน บอท 1 ตัว".format(number_of_rows)
+    return msg.strip()
