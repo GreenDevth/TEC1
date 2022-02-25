@@ -11,7 +11,7 @@ class AdminCommand(commands.Cog):
     @commands.has_permissions(manage_roles=True)
     async def players_list(self, ctx):
         list_player = listplayers()
-        await ctx.reply(list_player)
+        await ctx.reply(list_player, mention_author=False)
         await ctx.message.delete()
 
     @players_list.error
@@ -27,7 +27,7 @@ class AdminCommand(commands.Cog):
     @commands.has_permissions(manage_roles=True)
     async def count_players(self, ctx):
         count_player = countplayers()
-        await ctx.reply(count_player)
+        await ctx.reply(count_player, mention_author=False)
         await ctx.message.delete()
 
     @count_players.error
