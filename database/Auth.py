@@ -1,5 +1,6 @@
+import os
 from mysql.connector import MySQLConnection, Error
-from db.mysql_dbconfig import read_db_config
+from database.db_config import read_db_config
 
 db = read_db_config()
 
@@ -14,3 +15,9 @@ def get_token(tokenid):
             return res[0]
     except Error as e:
         print(e)
+
+
+def load_cog(bot):
+    for filename in os.listdir('./extension'):
+        if filename.endswith('.py'):
+            bot.load_extension(f'extension.{filename[:-3]}')
