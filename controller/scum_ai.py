@@ -67,8 +67,6 @@ def fixed_lost():
     time.sleep(1)
     ai.moveTo(x=312, y=219)
     ai.click()
-    time.sleep(0.5)
-    ai.press('esc')
     time.sleep(1)
     ai.moveTo(x=75, y=209)
     time.sleep(0.5)
