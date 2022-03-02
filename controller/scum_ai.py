@@ -107,14 +107,14 @@ def get_location(location):
         ai.moveTo(x=315, y=206)
         ai.click()
         time.sleep(0.5)
-        ai.write(f'#location {location} true')
+        ai.write(location)
         time.sleep(0.5)
         ai.press('enter')
         time.sleep(0.5)
         txt = pyperclip.paste()
         df = pd.read_clipboard(txt)
         text = df.to_string(index=False)
-        msg = f'```\nตำแหน่งของคุณคือ {text}```'
+        msg = f'ตำแหน่งของคุณคือ {text}'
         return msg.strip()
 
 
