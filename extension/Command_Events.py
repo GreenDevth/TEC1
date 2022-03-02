@@ -37,7 +37,7 @@ class CommandEvents(commands.Cog):
                 spawn_code = package.split(",")
                 count = check_queue()
                 while True:
-                    if count != 0:
+                    if count != 0 or count == 1:
                         time.sleep(1)
                         for x in spawn_code:
                             time.sleep(0.5)
