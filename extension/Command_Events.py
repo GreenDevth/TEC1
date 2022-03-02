@@ -53,8 +53,8 @@ class CommandEvents(commands.Cog):
                         message = f'Delivery end number of queue is {count}'
                         break
                         # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
-                        # return
                     print(message)
+                    return
 
 
 def setup(bot):
