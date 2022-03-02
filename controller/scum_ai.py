@@ -102,6 +102,21 @@ def cmd(txt_command):
     msg = str(txt_command)
     return msg.strip()
 
+def get_location(location):
+        time.sleep(0.5)
+        ai.moveTo(x=315, y=206)
+        ai.click()
+        time.sleep(0.5)
+        ai.write(f'#location {location} true')
+        time.sleep(0.5)
+        ai.press('enter')
+        time.sleep(0.5)
+        txt = pyperclip.paste()
+        df = pd.read_clipboard(txt)
+        text = df.to_string(index=False)
+        msg = f'```\nตำแหน่งของคุณคือ {text}```'
+        return msg.strip()
+
 
 def listplayers():
     time.sleep(0.5)

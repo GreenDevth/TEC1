@@ -4,7 +4,7 @@ from datetime import datetime
 
 from discord.ext import commands
 
-from controller.scum_ai import cmd
+from controller.scum_ai import cmd, get_location
 from database.Store import check_queue, get_queue, get_package, delete_row
 
 now = datetime.now()
@@ -19,6 +19,7 @@ class CommandEvents(commands.Cog):
     async def on_message(self, message):
         member = message.author
         cmd_channel = self.bot.get_channel(927796274676260944)
+        location_command = self.bot.get_channel(948477565251780658)
         if message.content.startswith('.set'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[5:]
@@ -28,6 +29,10 @@ class CommandEvents(commands.Cog):
                 await message.channel.send('คุณไม่ได้รับสิทธิ์ในการใช้งานคำสั่งเหล่านี้', delete_after=3)
                 await asyncio.sleep(3.5)
                 await message.delete()
+        elif message.content.startswith('.location'):
+            msg = message.content[10:]
+            result = get_location(msg)
+            await location_command.send(f'```{result}```')
         elif message.content.startswith('!checkout'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[10:]
