@@ -34,7 +34,7 @@ def login_game():
     ai.keyDown('ctrl')
     ai.press('d')
     ai.keyUp('ctrl')
-    ai.moveTo(80, 207)
+    ai.moveTo(x=75, y=209)
     ai.click()
     msg = "กำลัง Login เกมส์เข้าสู่เซิร์ฟเวอร์"
     return msg.strip()
@@ -65,12 +65,10 @@ def goto_home():
 
 def fixed_lost():
     time.sleep(1)
-    ai.moveTo(x=315, y=206)
+    ai.moveTo(x=312, y=219)
     ai.click()
-    time.sleep(0.5)
-    ai.press('esc')
     time.sleep(1)
-    ai.moveTo(80, 207)
+    ai.moveTo(x=75, y=209)
     time.sleep(0.5)
     ai.click()
     time.sleep(90)
