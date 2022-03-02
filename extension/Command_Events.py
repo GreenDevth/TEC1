@@ -6,6 +6,7 @@ from discord.ext import commands
 
 from controller.scum_ai import cmd
 from database.Store import check_queue, get_queue, get_package, delete_row
+
 now = datetime.now()
 times = now.strftime("%H:%M:%S")
 
@@ -27,15 +28,15 @@ class CommandEvents(commands.Cog):
                 await message.channel.send('คุณไม่ได้รับสิทธิ์ในการใช้งานคำสั่งเหล่านี้', delete_after=3)
                 await asyncio.sleep(3.5)
                 await message.delete()
-        if message.content.startswith('!checkout'):
+        elif message.content.startswith('!checkout'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[10:]
                 data = get_queue(msg)
                 steam_id = data[0]
                 package = get_package(data[1])
                 spawn_code = package.split(",")
+                count = check_queue()
                 while True:
-                    count = check_queue()
                     if count != 0:
                         time.sleep(1)
                         for x in spawn_code:
@@ -45,16 +46,15 @@ class CommandEvents(commands.Cog):
                                 f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
                             )
                         delete_row()
-                        time.sleep(5)
-                        await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
+                        time.sleep(1)
+                        message = f'current queue is {count}'
 
                     else:
-                        await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
-                        return
-
-
-
-
+                        message = f'Delivery end number of queue is {count}'
+                        break
+                        # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
+                        # return
+                    print(message)
 
 
 def setup(bot):
