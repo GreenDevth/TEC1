@@ -36,25 +36,29 @@ class CommandEvents(commands.Cog):
                 package = get_package(data[1])
                 spawn_code = package.split(",")
                 count = check_queue()
-                while True:
-                    if count != 0 or count == 1:
-                        time.sleep(1)
-                        for x in spawn_code:
-                            time.sleep(0.5)
-                            cmd("{} location {}".format(x, steam_id))
-                            await cmd_channel.send(
-                                f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
-                            )
-                        delete_row()
-                        time.sleep(1)
-                        message = f'current queue is {count}'
+                if count == 1:
+                    while True:
+                        if count != 0:
+                            time.sleep(1)
+                            for x in spawn_code:
+                                time.sleep(0.5)
+                                cmd("{} location {}".format(x, steam_id))
+                                await cmd_channel.send(
+                                    f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
+                                )
+                            delete_row()
+                            time.sleep(1)
+                            message = f'current queue is {count}'
 
-                    else:
-                        message = f'Delivery end number of queue is {count}'
-                        break
-                        # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
-                    print(message)
-                    return
+                        else:
+                            message = f'Delivery end number of queue is {count}'
+                            break
+                            # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
+                        print(message)
+                        return
+                else:
+                    pass
+                return
 
 
 def setup(bot):
