@@ -29,7 +29,7 @@ class ScumController(commands.Cog):
     @commands.command(name='lost')
     async def lost_game_controller(self, ctx):
         game_lost = fixed_lost()
-        message = "โดรน TEC1 กำลังกลับเข้าสู่เซิร์ฟเวอร์ใหม่อีกครั้ง"
+        message = str(game_lost)
         await ctx.reply(f'{message}', mention_author=False)
     
     
@@ -51,13 +51,14 @@ class ScumController(commands.Cog):
             message = str(game_login)
         elif btn == 'goto_home':
             game_home = goto_home()
-            message = "โดรนกำลังไปยังจุดประจำการ"
+            message = str(game_home)
         elif btn == 'lost':
             print(f'{btn}')
             game_lost = fixed_lost()
-            message = "โดรน TEC1 กำลังกลับเข้าสู่เซิร์ฟเวอร์ใหม่อีกครั้ง"
+            message = str(game_lost)
 
         await interaction.respond(content=f'{message}')
+
     @commands.command(name='controller')
     async def scum_controller(self, ctx):
         await ctx.send(
