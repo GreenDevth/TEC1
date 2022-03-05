@@ -85,6 +85,10 @@ class CommandEvents(commands.Cog):
                     else:
                         break
                 await cmd_channel.send('จัดส่งสินค้าเสร็จสิ้น')
+                message = 'จัดส่งสินค้าเสร็จสิ้น'
+                print(message)
+                return
+                
 
 def setup(bot):
     bot.add_cog(CommandEvents(bot))
