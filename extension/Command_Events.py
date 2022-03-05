@@ -61,7 +61,7 @@ class CommandEvents(commands.Cog):
                     print(message)
                     return
         elif message.content.startswith('--run'):
-            if message.author.guild.permissions.administrator:
+            if message.author.guild_permissions.administrator:
                 msg = message.content[6:]
                 data = get_queue(msg)
                 steam_id = data[0]
