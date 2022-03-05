@@ -83,8 +83,8 @@ class CommandEvents(commands.Cog):
                         print(message)
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
                     else:
-                        await message.channel.send('จัดส่งสินค้าเสร็จสิ้น')
                         break
+                await cmd_channel.send('จัดส่งสินค้าเสร็จสิ้น')
 
 def setup(bot):
     bot.add_cog(CommandEvents(bot))
