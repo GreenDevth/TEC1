@@ -43,6 +43,7 @@ class ScumController(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, interaction):
         btn = interaction.component.custom_id
+        message = None
         if btn == 'game_start':
             game_start = start_game()
             message = str(game_start)
