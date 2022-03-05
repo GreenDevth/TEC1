@@ -47,11 +47,13 @@ class AdminCommand(commands.Cog):
         if btn == 'list_players':
             list_player = listplayers()
             message = list_player.strip()
+            await interaction.respond(content=message)
+            return
         elif btn == 'count_players':
             count_player = countplayers()
             message = count_player.strip()
-        await interaction.respond(content=message)
-        return
+            await interaction.respond(content=message)
+            return
 
     @commands.command(name='servebutton')
     async def serverbutton_commands(self, ctx):
