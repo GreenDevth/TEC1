@@ -78,7 +78,7 @@ class CommandEvents(commands.Cog):
                             await cmd_channel.send(
                                 f'```ini\nName : [TEC1] Command : [{x} Location {steam_id}]\n```'
                             )
-                        delete_row()
+                        delete_row_demo()
                         message = f'Current queus is {count}'
                         print(message)
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
