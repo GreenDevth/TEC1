@@ -47,18 +47,28 @@ class ScumController(commands.Cog):
         if btn == 'game_start':
             game_start = start_game()
             message = str(game_start)
+            await interaction.respond(content=f'{message}')
+            return
+            
         elif btn == 'game_login':
             game_login = login_game()
             message = str(game_login)
+            await interaction.respond(content=f'{message}')
+            return
+            
         elif btn == 'goto_home':
             game_home = goto_home()
             message = str(game_home)
+            await interaction.respond(content=f'{message}')
+            return
+            
         elif btn == 'lost':
             print(f'{btn}')
             game_lost = fixed_lost()
             message = str(game_lost)
-
-        await interaction.respond(content=f'{message}')
+            await interaction.respond(content=f'{message}')
+            return
+            
 
     @commands.command(name='controller')
     async def scum_controller(self, ctx):
