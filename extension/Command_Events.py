@@ -5,7 +5,7 @@ from datetime import datetime
 from discord.ext import commands
 
 from controller.scum_ai import cmd, get_location
-from database.Store import check_queue, get_queue, get_package, delete_row
+from database.Store import *
 
 now = datetime.now()
 times = now.strftime("%H:%M:%S")
@@ -63,11 +63,11 @@ class CommandEvents(commands.Cog):
         elif message.content.startswith('--run'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[6:]
-                data = get_queue(msg)
+                data = get_queue_demo(msg)
                 steam_id = data[0]
                 package = get_package(data[1])
                 spawn_code = package.split(",")
-                count = check_queue()
+                count = check_queue_demo()
 
                 while True:
                     if count !=0:
