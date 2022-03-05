@@ -51,6 +51,7 @@ class AdminCommand(commands.Cog):
             count_player = countplayers()
             message = count_player.strip()
         await interaction.respond(content=message)
+        return
 
     @commands.command(name='servebutton')
     async def serverbutton_commands(self, ctx):
