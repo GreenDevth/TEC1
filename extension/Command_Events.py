@@ -67,9 +67,9 @@ class CommandEvents(commands.Cog):
                 steam_id = data[0]
                 package = get_package(data[1])
                 spawn_code = package.split(",")
-                count = check_queue_demo()
 
                 while True:
+                    count = check_queue_demo()
                     if count !=0:
                         time.sleep(1)
                         for x in spawn_code:
@@ -84,7 +84,7 @@ class CommandEvents(commands.Cog):
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
                     else:
                         break
-                await message.channel.send('spanw item finish.')
+                await message.channel.send('spawner item finish.')
 
 def setup(bot):
     bot.add_cog(CommandEvents(bot))
