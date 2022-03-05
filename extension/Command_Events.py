@@ -79,12 +79,12 @@ class CommandEvents(commands.Cog):
                                 f'```ini\nName : [TEC1] Command : [{x} Location {steam_id}]\n```'
                             )
                         delete_row_demo()
-                        message = f'Current queus is {count}'
+                        message = f'คำสั่งซื้อคงเหลือ {count}'
                         print(message)
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
                     else:
+                        await message.channel.send('จัดส่งสินค้าเสร็จสิ้น')
                         break
-                await message.channel.send('spawner item finish.')
 
 def setup(bot):
     bot.add_cog(CommandEvents(bot))
