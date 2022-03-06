@@ -61,6 +61,7 @@ class CommandEvents(commands.Cog):
                     print(message)
                     return
         elif message.content.startswith('--run'):
+            cmd_command_channel = self.bot.get_channel(925559937323659274)
             if message.author.guild_permissions.administrator:
                 msg = message.content[6:]
                 data = get_queue_demo(msg)
@@ -84,7 +85,7 @@ class CommandEvents(commands.Cog):
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
                     else:
                         break
-                await cmd_channel.send('จัดส่งสินค้าเสร็จสิ้น')
+                await cmd_command_channel.send('จัดส่งสินค้าเสร็จสิ้น')
                 message = 'จัดส่งสินค้าเสร็จสิ้น'
                 print(message)
                 return
