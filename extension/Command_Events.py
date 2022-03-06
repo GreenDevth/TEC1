@@ -74,7 +74,7 @@ class CommandEvents(commands.Cog):
                         time.sleep(1)
                         for x in spawn_code:
                             time.sleep(1)
-                            cmd("{} location ()".format(x, steam_id))
+                            cmd("{} location {}".format(x, steam_id))
                             await cmd_channel.send(
                                 f'```ini\nName : [TEC1] Command : [{x} Location {steam_id}]\n```'
                             )
