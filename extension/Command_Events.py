@@ -64,14 +64,14 @@ class CommandEvents(commands.Cog):
             cmd_command_channel = self.bot.get_channel(925559937323659274)
             if message.author.guild_permissions.administrator:
                 msg = message.content[6:]
-                data = get_queue_demo(msg)
+                data = get_queue(msg)
                 steam_id = data[0]
                 package = get_package(data[1])
                 spawn_code = package.split(",")
 
                 while True:
                     count = check_queue_demo()
-                    if count !=0:
+                    if count != 0:
                         time.sleep(1)
                         for x in spawn_code:
                             time.sleep(0.5)
