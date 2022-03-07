@@ -16,6 +16,7 @@ def check_queue():
     except Error as e:
         print(e)
 
+
 def get_pack(order):
     try:
         conn = MySQLConnection(**db)
@@ -27,6 +28,7 @@ def get_pack(order):
             return res[0]
     except Error as e:
         print(e)
+
 
 def get_queue(product_code):
     try:
@@ -40,6 +42,7 @@ def get_queue(product_code):
     except Error as e:
         print(e)
 
+
 def get_package(pack_name):
     try:
         dbconfig = read_db_config()
@@ -52,6 +55,7 @@ def get_package(pack_name):
             return data[0]
     except Error as e:
         print(e)
+
 
 def delete_row():
     conn = None
@@ -69,15 +73,11 @@ def delete_row():
             conn.close()
 
 
-
-
-
-
 def check_queue_demo():
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('select count(*) from scum_shopping_cart_demo')
+        cur.execute('select count(*) from scum_shopping_cart')
         row = cur.fetchone()
         while row is not None:
             res = list(row)
@@ -90,7 +90,7 @@ def get_pack_demo(order):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('select package_name from scum_shopping_cart_demo where order_number = %s', (order,))
+        cur.execute('select package_name from scum_shopping_cart where order_number = %s', (order,))
         row = cur.fetchone()
         while row is not None:
             res = list(row)
@@ -98,11 +98,13 @@ def get_pack_demo(order):
     except Error as e:
         print(e)
 
+
 def get_queue_demo(product_code):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT steam_id, package_name FROM scum_shopping_cart_demo WHERE order_number = %s', (product_code,))
+        cur.execute('SELECT steam_id, package_name FROM scum_shopping_cart WHERE order_number = %s',
+                    (product_code,))
         row = cur.fetchone()
         while row is not None:
             data = list(row)
@@ -110,13 +112,14 @@ def get_queue_demo(product_code):
     except Error as e:
         print(e)
 
+
 def delete_row_demo():
     conn = None
     try:
         dbconfi = read_db_config()
         conn = MySQLConnection(**dbconfi)
         cur = conn.cursor()
-        cur.execute('DELETE FROM scum_shopping_cart_demo LIMIT 1')
+        cur.execute('DELETE FROM scum_shopping_cart LIMIT 1')
         conn.commit()
         cur.close()
     except Error as e:
