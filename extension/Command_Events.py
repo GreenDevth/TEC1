@@ -74,7 +74,7 @@ class CommandEvents(commands.Cog):
                     if count != 0:
                         time.sleep(1)
                         for x in spawn_code:
-                            time.sleep(0.5)
+                            time.sleep(1)
                             cmd("{} location {}".format(x, steam_id))
                             await cmd_channel.send(
                                 f'```ini\nName : [TEC1] Command : [{x} Location {steam_id}]\n```'
@@ -83,6 +83,7 @@ class CommandEvents(commands.Cog):
                         message = f'คำสั่งซื้อคงเหลือ {count}'
                         print(message)
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
+                        time.sleep(1)
                     else:
                         break
                 await cmd_command_channel.send('จัดส่งสินค้าเสร็จสิ้น')
