@@ -21,7 +21,7 @@ def get_pack(order):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('select package_name from scum_shopping_cart where order_number = %s', (order,))
+        cur.execute('select item_id from scum_shopping_cart where order_number = %s', (order,))
         row = cur.fetchone()
         while row is not None:
             res = list(row)
@@ -34,7 +34,7 @@ def get_queue(product_code):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT steam_id, package_name FROM scum_shopping_cart WHERE order_number = %s', (product_code,))
+        cur.execute('SELECT steam_id, item_id FROM scum_shopping_cart WHERE order_number = %s', (product_code,))
         row = cur.fetchone()
         while row is not None:
             data = list(row)
@@ -43,12 +43,12 @@ def get_queue(product_code):
         print(e)
 
 
-def get_package(pack_name):
+def get_package(itemid):
     try:
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
         cur = conn.cursor()
-        cur.execute('SELECT package_data FROM scum_package WHERE package_name = %s', (pack_name,))
+        cur.execute('SELECT package_data FROM scum_package WHERE item_id = %s', (itemid,))
         row = cur.fetchone()
         while row is not None:
             data = list(row)
@@ -90,7 +90,7 @@ def get_pack_demo(order):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('select package_name from scum_shopping_cart where order_number = %s', (order,))
+        cur.execute('select item_id from scum_shopping_cart where order_number = %s', (order,))
         row = cur.fetchone()
         while row is not None:
             res = list(row)
@@ -103,7 +103,7 @@ def get_queue_demo(product_code):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT steam_id, package_name FROM scum_shopping_cart WHERE order_number = %s',
+        cur.execute('SELECT steam_id, item_id FROM scum_shopping_cart WHERE order_number = %s',
                     (product_code,))
         row = cur.fetchone()
         while row is not None:
