@@ -5,8 +5,8 @@ from datetime import datetime
 from discord.ext import commands
 
 from controller.scum_ai import cmd, get_location
+from database.Store_db import get_daily_pack_from_shopping_cart, get_dailypack_spawner_code
 from database.Store import *
-
 now = datetime.now()
 times = now.strftime("%H:%M:%S")
 
@@ -36,31 +36,30 @@ class CommandEvents(commands.Cog):
         elif message.content.startswith('!checkout'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[10:]
-                await message.channel.send(msg)
-                # data = get_queue(msg)
-                # steam_id = data[0]
-                # package = get_package(data[1])
-                # spawn_code = package.split(",")
-                # count = check_queue()
-                # while True:
-                #     if count != 0:
-                #         time.sleep(1)
-                #         for x in spawn_code:
-                #             time.sleep(0.5)
-                #             cmd("{} location {}".format(x, steam_id))
-                #             await cmd_channel.send(
-                #                 f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
-                #             )
-                #         delete_row()
-                #         time.sleep(1)
-                #         message = f'current queue is {count}'
-                #
-                #     else:
-                #         message = f'Delivery end number of queue is {count}'
-                #         break
-                #         # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
-                #     print(message)
-                #     return
+                data = get_daily_pack_from_shopping_cart(msg)
+                steam_id = data[0]
+                package = get_dailypack_spawner_code(data[1])
+                spawn_code = package.split(",")
+                count = check_queue()
+                while True:
+                    if count != 0:
+                        time.sleep(1)
+                        for x in spawn_code:
+                            time.sleep(0.5)
+                            cmd("{} location {}".format(x, steam_id))
+                            await cmd_channel.send(
+                                f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
+                            )
+                        delete_row()
+                        time.sleep(1)
+                        message = f'current queue is {count}'
+
+                    else:
+                        message = f'Delivery end number of queue is {count}'
+                        break
+                        # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
+                    print(message)
+                    return
 
         elif message.content.startswith('--run'):
             cmd_command_channel = self.bot.get_channel(925559937323659274)

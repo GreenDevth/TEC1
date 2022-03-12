@@ -34,7 +34,7 @@ def get_queue():
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT steam_id, item_id FROM scum_shopping_cart LIMIT 1')
+        cur.execute('SELECT steam_id, order_number FROM scum_shopping_cart LIMIT 1')
         row = cur.fetchone()
         while row is not None:
             data = list(row)
