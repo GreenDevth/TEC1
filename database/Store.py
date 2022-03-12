@@ -48,7 +48,7 @@ def get_package(itemid):
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
         cur = conn.cursor()
-        cur.execute('SELECT package_data FROM scum_items WHERE item_id = %s', (itemid,))
+        cur.execute('SELECT spawner_code FROM scum_items WHERE item_id = %s', (itemid,))
         row = cur.fetchone()
         while row is not None:
             data = list(row)
