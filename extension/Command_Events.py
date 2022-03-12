@@ -36,30 +36,56 @@ class CommandEvents(commands.Cog):
         elif message.content.startswith('!checkout'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[10:]
-                data = get_queue(msg)
-                steam_id = data[0]
-                package = get_package(data[1])
-                spawn_code = package.split(",")
-                count = check_queue()
                 while True:
+                    count = check_queue()
                     if count != 0:
+                        data = get_queue()
+                        steam_id = data[0]
+                        package = get_package(data[1])
+                        spawn_code = package.split(",")
                         time.sleep(1)
                         for x in spawn_code:
                             time.sleep(0.5)
                             cmd("{} location {}".format(x, steam_id))
                             await cmd_channel.send(
-                                f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
+                                f'```ini\nName : [TEC1] Command : [{x} Location {steam_id}]\n```'
                             )
                         delete_row()
+                        message = f'คำสั่งซื้อคงเหลือ {count}'
+                        print(message)
+                        await cmd_channel.send(f'```ini\n[{message}]\n```')
+                        await cmd_command_channel.send('คำสั่งซื้อหมายเลข {} จัดส่งสินค้าเสร็จสิ้น'.format(msg))
                         time.sleep(1)
-                        message = f'current queue is {count}'
-
                     else:
-                        message = f'Delivery end number of queue is {count}'
                         break
-                        # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
-                    print(message)
-                    return
+                await cmd_command_channel.send('จัดส่งสินค้าเสร็จสิ้น')
+                message = 'จัดส่งสินค้าเสร็จสิ้น'
+                print(message)
+                return
+                # data = get_queue(msg)
+                # steam_id = data[0]
+                # package = get_package(data[1])
+                # spawn_code = package.split(",")
+                # count = check_queue()
+                # while True:
+                #     if count != 0:
+                #         time.sleep(1)
+                #         for x in spawn_code:
+                #             time.sleep(0.5)
+                #             cmd("{} location {}".format(x, steam_id))
+                #             await cmd_channel.send(
+                #                 f'```ini\nTime : [{times}] Command : [{x} Location {steam_id}]\n```'
+                #             )
+                #         delete_row()
+                #         time.sleep(1)
+                #         message = f'current queue is {count}'
+
+                #     else:
+                #         message = f'Delivery end number of queue is {count}'
+                #         break
+                #         # await message.channel.send('คิวในการส่งของตอนนี้ เหลือ {} คิว'.format(count))
+                #     print(message)
+                #     return
         elif message.content.startswith('--run'):
             cmd_command_channel = self.bot.get_channel(925559937323659274)
             if message.author.guild_permissions.administrator:
