@@ -30,11 +30,11 @@ def get_pack(order):
         print(e)
 
 
-def get_queue(product_code):
+def get_queue():
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT steam_id, item_id FROM scum_shopping_cart WHERE order_number = %s', (product_code,))
+        cur.execute('SELECT steam_id, item_id FROM scum_shopping_cart LIMIT 1')
         row = cur.fetchone()
         while row is not None:
             data = list(row)

@@ -72,7 +72,7 @@ class CommandEvents(commands.Cog):
                 while True:
                     count = check_queue()
                     if count != 0:
-                        data = get_queue(msg)
+                        data = get_queue()
                         steam_id = data[0]
                         package = get_package(data[1])
                         spawn_code = package.split(",")
