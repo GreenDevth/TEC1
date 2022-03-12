@@ -70,7 +70,7 @@ class CommandEvents(commands.Cog):
                 spawn_code = package.split(",")
 
                 while True:
-                    count = check_queue_demo()
+                    count = check_queue()
                     if count != 0:
                         time.sleep(1)
                         for x in spawn_code:
@@ -79,7 +79,7 @@ class CommandEvents(commands.Cog):
                             await cmd_channel.send(
                                 f'```ini\nName : [TEC1] Command : [{x} Location {steam_id}]\n```'
                             )
-                        delete_row_demo()
+                        delete_row()
                         message = f'คำสั่งซื้อคงเหลือ {count}'
                         print(message)
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
