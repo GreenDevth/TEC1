@@ -87,6 +87,7 @@ class CommandEvents(commands.Cog):
                         message = f'คำสั่งซื้อคงเหลือ {count}'
                         print(message)
                         await cmd_channel.send(f'```ini\n[{message}]\n```')
+                        await cmd_command_channel.send('คำสั่งซื้อหมายเลข {} จัดส่งสินค้าเสร็จสิ้น'.format(msg))
                         time.sleep(1)
                     else:
                         break
