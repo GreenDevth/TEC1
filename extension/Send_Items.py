@@ -16,10 +16,12 @@ class SendItem(commands.Cog):
         steam_id = players_info(arg2)
         package = get_spawner_code(arg)
         spawn_code = package.split(",")
-        for x in spawn_code:
-            time.sleep(0.5)
-            cmd("{} location {}".format(x, steam_id))
-        await ctx.send(f"```ini\n[{self.bot.name}] send [{arg}] to [{steam_id}]\n```")
+        if spawn_code is not None:
+            for x in spawn_code:
+                time.sleep(0.5)
+                cmd("{} location {}".format(x, steam_id))
+                print(f'send {x} to {steam_id}')
+            await ctx.send(f"```ini\n[{self.bot.name}] send [{arg}] to [{steam_id}]\n```")
 
     @send_pack_command.error
     async def send_pack_command_error(self, ctx, error):
