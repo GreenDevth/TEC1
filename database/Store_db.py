@@ -28,3 +28,30 @@ def get_dailypack_spawner_code(itemid):
             return data[0]
     except Error as e:
         print(e)
+
+
+def get_spawner_code(commands):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT spawner_code FROM scum_items WHERE commands = %s', (commands,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+
+    except Error as e:
+        print(e)
+
+
+def send_pack(item_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT spawner_code FROM scum_items WHERE item_id = %s', (item_id,))
+        row = cur.fetchone()
+        while row is not None:
+            data = list(row)
+            return data[0]
+    except Error as e:
+        print(e)

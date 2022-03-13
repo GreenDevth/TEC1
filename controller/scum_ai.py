@@ -102,18 +102,19 @@ def cmd(txt_command):
     msg = str(txt_command)
     return msg.strip()
 
+
 def get_location(location):
-        time.sleep(0.5)
-        ai.moveTo(x=315, y=206)
-        ai.click()
-        time.sleep(0.5)
-        ai.write(location)
-        time.sleep(0.5)
-        ai.press('enter')
-        time.sleep(5)
-        txt = pyperclip.paste()
-        msg = f'ตำแหน่งของคุณคือ {txt}'
-        return msg.strip()
+    time.sleep(0.5)
+    ai.moveTo(x=315, y=206)
+    ai.click()
+    time.sleep(0.5)
+    ai.write(location)
+    time.sleep(0.5)
+    ai.press('enter')
+    time.sleep(5)
+    txt = pyperclip.paste()
+    msg = f'ตำแหน่งของคุณคือ {txt}'
+    return msg.strip()
 
 
 def listplayers():
