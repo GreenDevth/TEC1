@@ -22,6 +22,7 @@ class SendItem(commands.Cog):
                 cmd("{} location {}".format(x, steam_id))
                 print(f'send {x} to {steam_id}')
         await ctx.reply(f'sendpack {arg} to {arg2} successfully...')
+        await ctx.message.delete()
 
     @send_pack_command.error
     async def send_pack_command_error(self, ctx, error):
