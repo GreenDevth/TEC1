@@ -21,7 +21,7 @@ class SendItem(commands.Cog):
                 time.sleep(0.5)
                 cmd("{} location {}".format(x, steam_id))
                 print(f'send {x} to {steam_id}')
-            await ctx.send(f"```ini\n[{self.bot.name}] send [{arg}] to [{steam_id}]\n```")
+        await ctx.send(f"```ini\n[{self.bot.name}] send [{arg}] to [{steam_id}]\n```")
 
     @send_pack_command.error
     async def send_pack_command_error(self, ctx, error):
