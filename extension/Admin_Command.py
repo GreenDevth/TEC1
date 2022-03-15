@@ -43,6 +43,7 @@ class AdminCommand(commands.Cog):
 
     @commands.Cog.listener()
     async def on_button_click(self, interaction):
+        member = interaction.author
         btn = interaction.component.custom_id
         message = None
         if btn == 'list_players':
@@ -56,11 +57,12 @@ class AdminCommand(commands.Cog):
             await interaction.respond(content=message)
             return
         elif btn == 'withdraw':
-            message = 'ถอนเงิน'
+            coins = players(member.id)[5]
+            message = f'ถอนเงิน **{coins}**'
             await interaction.respond(content=message)
             return
         elif btn == 'balance':
-            message = 'เช็คยอดเงิน'
+            message = f'ยอดเงินทั้งหมด **{players(member.id)[5]}**'
             await interaction.respond(content=message)
             return
 
