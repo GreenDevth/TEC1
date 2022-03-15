@@ -70,11 +70,11 @@ class AdminCommand(commands.Cog):
     @commands.command(name='atm')
     async def atm_command(self, ctx):
         await ctx.send(
-            file=discord.File('./img/atv'),
+            file=discord.File('./img/atm_l.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.green, label='WITHDRAW', emoji='💵', custom_id='withdraw'),
-                    Button(style=ButtonStyle.blue, label='CHECK BALANCE', emoji='🏧', custom_id='balance')
+                    Button(style=ButtonStyle.green, label='ถอนเงิน', emoji='💵', custom_id='withdraw'),
+                    Button(style=ButtonStyle.blue, label='เช็คยอดเงิน', emoji='🏧', custom_id='balance')
                 ]
             ]
         )
