@@ -15,3 +15,15 @@ def players_info(discord_id):
             return res[0]
     except Error as e:
         print(e)
+
+
+def players(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM scum_players WHERE DISCORD_ID = %s', (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            return row
+    except Error as e:
+        print(e)

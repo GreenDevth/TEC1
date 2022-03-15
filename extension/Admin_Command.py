@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from controller.scum_ai import listplayers, countplayers
-
+from database.Players_db import players
 
 class AdminCommand(commands.Cog):
     def __init__(self, bot):
@@ -70,12 +70,15 @@ class AdminCommand(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, interaction):
         member = interaction.author
+        player = players(member.id)
         atm = interaction.component.custom_id
         atm_list = ["withdraw", "balance"]
 
         if atm in atm_list:
-            message = atm
-            await interaction.respond(content=f'{member.name} click {atm}')
+            if atm == 'withdraw':
+                await interaction.respond(
+                    content='กรุณาระบุจำนวนเงินของคุณ เช่น **5000**'
+                )
 
     @commands.command(name='atm')
     async def atm_command(self, ctx):
