@@ -4,6 +4,7 @@ from discord_components import Button, ButtonStyle
 from controller.scum_ai import listplayers, countplayers
 from database.Players_db import players
 
+
 class AdminCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -54,6 +55,14 @@ class AdminCommand(commands.Cog):
             message = count_player.strip()
             await interaction.respond(content=message)
             return
+        elif btn == 'withdraw':
+            message = 'ถอนเงิน'
+            await interaction.respond(content=message)
+            return
+        elif btn == 'balance':
+            message = 'เช็คยอดเงิน'
+            await interaction.respond(content=message)
+            return
 
     @commands.command(name='servebutton')
     async def serverbutton_commands(self, ctx):
@@ -66,19 +75,6 @@ class AdminCommand(commands.Cog):
                 ]
             ]
         )
-
-    @commands.Cog.listener()
-    async def on_button_click(self, interaction):
-        member = interaction.author
-        player = players(member.id)
-        atm = interaction.component.custom_id
-        atm_list = ["withdraw", "balance"]
-
-        if atm in atm_list:
-            if atm == 'withdraw':
-                await interaction.respond(
-                    content='กรุณาระบุจำนวนเงินของคุณ เช่น **5000**'
-                )
 
     @commands.command(name='atm')
     async def atm_command(self, ctx):
