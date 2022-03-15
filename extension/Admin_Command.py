@@ -67,6 +67,16 @@ class AdminCommand(commands.Cog):
             ]
         )
 
+    @commands.Cog.listener()
+    async def on_button_click(self, interaction):
+        member = interaction.author
+        atm = interaction.component.custom_id
+        atm_list = ["withdraw", "balance"]
+
+        if atm in atm_list:
+            message = atm
+            await interaction.respond(content=f'{member.name} click {atm}')
+
     @commands.command(name='atm')
     async def atm_command(self, ctx):
         await ctx.send(
