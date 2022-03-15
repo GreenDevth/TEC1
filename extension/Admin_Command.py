@@ -59,7 +59,11 @@ class AdminCommand(commands.Cog):
         elif btn == 'withdraw':
             coins = players(member.id)[5]
             message = f'ถอนเงิน **{coins}**'
-            await interaction.respond(content=message)
+            await interaction.respond(
+                content='จำนวนเงินที่สามารถกดได้ ต่อครั้ง\n'
+                        '\n======================'
+                        '**5000** **1000**\n'
+                        '======================')
             return
         elif btn == 'balance':
             message = f'ยอดเงินทั้งหมด **{players(member.id)[5]}**'
