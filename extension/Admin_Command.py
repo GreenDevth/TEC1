@@ -67,6 +67,18 @@ class AdminCommand(commands.Cog):
             ]
         )
 
+    @commands.command(name='atm')
+    async def atm_command(self, ctx):
+        await ctx.send(
+            file=discord.File('./img/atv'),
+            components=[
+                [
+                    Button(style=ButtonStyle.green, label='WITHDRAW', emoji='💵', custom_id='withdraw'),
+                    Button(style=ButtonStyle.blue, label='CHECK BALANCE', emoji='🏧', custom_id='balance')
+                ]
+            ]
+        )
+
 
 def setup(bot):
     bot.add_cog(AdminCommand(bot))
