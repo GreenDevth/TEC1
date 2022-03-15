@@ -61,8 +61,8 @@ class AdminCommand(commands.Cog):
             message = f'ถอนเงิน **{coins}**'
             await interaction.respond(
                 content='จำนวนเงินที่สามารถกดได้ ต่อครั้ง\n'
-                        '\n======================'
-                        '**5000** **1000**\n'
+                        '======================\n'
+                        '   **5000**  **1000**\n'
                         '======================')
             return
         elif btn == 'balance':
