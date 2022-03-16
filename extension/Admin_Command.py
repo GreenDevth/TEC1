@@ -70,11 +70,11 @@ class AdminCommand(commands.Cog):
             )
         elif btn == 'b5000':
             await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
-            await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
+            # await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
             return
         elif btn == 'b10000':
             await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
-            await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
+            # await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
             return
 
             # def check(res): return res.author == interaction.author and res.channel == interaction.channel msg =
