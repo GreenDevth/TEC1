@@ -60,15 +60,24 @@ class AdminCommand(commands.Cog):
             coins = players(member.id)[5]
             message = f'ถอนเงิน **{coins}**'
             await interaction.respond(
-                content='จำนวนเงินที่สามารถกดได้ ต่อครั้ง\n'
-                        '**5000**, **10000**\n'
-                        'กรุณาระบุจำนวนเงินที่คุณต้องการ')
+                file=discord.File('./img/bank.png'),
+                components=[
+                    [
+                        Button(style=ButtonStyle.green, label='$5000', emoji='💵', custom_id='b5000'),
+                        Button(style=ButtonStyle.blue, label='$10000', emoji='💵', custom_id='b10000')
+                    ]
+                ]
+            )
 
-            def check(res):
-                return res.author == interaction.author and res.channel == interaction.channel
-            msg = await self.bot.wait_for('message', check=check)
-            message = msg.content
-            await interaction.channel.send(f'คุณถอนเงินจำนวน {message}')
+            # def check(res): return res.author == interaction.author and res.channel == interaction.channel msg =
+            # await self.bot.wait_for('message', check=check) message = msg.content if message == 5000: if message <
+            # coins: await interaction.channel.send(f'คุณถอนเงินจำนวน {message}', delete_after=5) return elif coins <
+            # message: await interaction.channel.send('ขออภัยยอดเงินของคุณไม่เพียงพอสำหรับการทำรายการนี้',
+            # delete_after=5) return return elif message == 10000: if message < coins: await
+            # interaction.channel.send(f'คุณถอนเงินจำนวน {message}', delete_after=5) return elif coins < message:
+            # await interaction.channel.send('ขออภัยยอดเงินของคุณไม่เพียงพอสำหรับการทำรายการนี้', delete_after=5)
+            # return return
+
         elif btn == 'balance':
             message = f'ยอดเงินทั้งหมด **{players(member.id)[5]}**'
             await interaction.respond(content=message)
