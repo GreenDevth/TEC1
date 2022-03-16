@@ -68,6 +68,14 @@ class AdminCommand(commands.Cog):
                     ]
                 ]
             )
+        elif btn == 'b5000':
+            await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+            await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
+            return
+        elif btn == 'b10000':
+            await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+            await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
+            return
 
             # def check(res): return res.author == interaction.author and res.channel == interaction.channel msg =
             # await self.bot.wait_for('message', check=check) message = msg.content if message == 5000: if message <
