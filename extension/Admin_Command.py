@@ -61,15 +61,14 @@ class AdminCommand(commands.Cog):
             message = f'ถอนเงิน **{coins}**'
             await interaction.respond(
                 content='จำนวนเงินที่สามารถกดได้ ต่อครั้ง\n'
-                        '======================\n'
-                        '   **5000**  **10000**\n'
-                        '======================')
+                        '**5000**, **10000**\n'
+                        'กรุณาระบุจำนวนเงินที่คุณต้องการ')
 
             def check(res):
                 return res.author == interaction.author and res.channel == interaction.channel
             msg = await self.bot.wait_for('message', check=check)
             message = msg.content
-            print(message)
+            await interaction.channel.send(f'คุณถอนเงินจำนวน {message}')
         elif btn == 'balance':
             message = f'ยอดเงินทั้งหมด **{players(member.id)[5]}**'
             await interaction.respond(content=message)
