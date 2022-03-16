@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
-from controller.scum_ai import listplayers, countplayers
+from controller.scum_ai import listplayers, countplayers, cmd
 from database.Players_db import players, update_coins
 
 
@@ -70,9 +70,11 @@ class AdminCommand(commands.Cog):
             )
         elif btn == 'b5000':
             coins = players(member.id)[5]
+            steam_id = players(member.id)[3]
             pay = 5000
             if pay < coins:
                 await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+                cmd("#SpawnItem BP_Cash 1 location {}".format(steam_id))
                 total = coins - pay
                 current_coins = update_coins(member.id, total)
                 await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
@@ -82,9 +84,11 @@ class AdminCommand(commands.Cog):
             return
         elif btn == 'b10000':
             coins = players(member.id)[5]
+            steam_id = players(member.id)[3]
             pay = 10000
             if pay < coins:
                 await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+                cmd("#SpawnItem BP_Cash 2 location {}".format(steam_id))
                 total = coins - pay
                 current_coins = update_coins(member.id, total)
                 await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
