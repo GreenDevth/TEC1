@@ -4,6 +4,25 @@ from discord_components import Button, ButtonStyle
 from controller.scum_ai import listplayers, countplayers, cmd
 from database.Players_db import players, update_coins
 
+from mysql.connector import MySQLConnection, Error
+from database.db_config import read_db_config
+
+db = read_db_config()
+
+
+def players_info(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM scum_players WHERE DISCORD_ID = %s', (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            for x in row:
+                return x
+        return
+    except Error as e:
+        print(e)
+
 
 class AdminCommand(commands.Cog):
     def __init__(self, bot):
@@ -57,44 +76,64 @@ class AdminCommand(commands.Cog):
             await interaction.respond(content=message)
             return
         elif btn == 'withdraw':
-            coins = players(member.id)[5]
-            message = f'ถอนเงิน **{coins}**'
-            await interaction.respond(
-                file=discord.File('./img/bank.png'),
-                components=[
-                    [
-                        Button(style=ButtonStyle.green, label='$5000', emoji='💵', custom_id='b5000'),
-                        Button(style=ButtonStyle.blue, label='$10000', emoji='💵', custom_id='b10000')
+            check = players_info(member.id)
+            if check is not None:
+                coins = players(member.id)[5]
+                message = f'ถอนเงิน **{coins}**'
+                await interaction.respond(
+                    file=discord.File('./img/bank.png'),
+                    components=[
+                        [
+                            Button(style=ButtonStyle.green, label='$5000', emoji='💵', custom_id='b5000'),
+                            Button(style=ButtonStyle.blue, label='$10000', emoji='💵', custom_id='b10000')
+                        ]
                     ]
-                ]
-            )
-        elif btn == 'b5000':
-            coins = players(member.id)[5]
-            steam_id = players(member.id)[3]
-            pay = 5000
-            if pay < coins:
-                await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
-                cmd("#SpawnItem BP_Cash 1 location {}".format(steam_id))
-                total = coins - pay
-                current_coins = update_coins(member.id, total)
-                await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
+                )
                 return
-            elif coins < pay:
-                await interaction.respond(content='ขออภัยยอดเงินในบัญชีของคุณไม่เพียงพอ')
+            elif check is None:
+                await interaction.respond(content='ไม่พบข้อมูลผู้ใช้งานในระบบ')
+                return
+            return
+
+        elif btn == 'b5000':
+            check = players_info(member.id)
+            if check is not None:
+                coins = players(member.id)[5]
+                steam_id = players(member.id)[3]
+                pay = 5000
+                if pay < coins:
+                    await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+                    cmd("#SpawnItem BP_Cash 1 location {}".format(steam_id))
+                    total = coins - pay
+                    current_coins = update_coins(member.id, total)
+                    await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
+                    return
+                elif coins < pay:
+                    await interaction.respond(content='ขออภัยยอดเงินในบัญชีของคุณไม่เพียงพอ')
+                return
+            elif check is None:
+                await interaction.respond(content='ไม่พบข้อมูลผู้ใช้งานในระบบ')
+                return
             return
         elif btn == 'b10000':
-            coins = players(member.id)[5]
-            steam_id = players(member.id)[3]
-            pay = 10000
-            if pay < coins:
-                await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
-                cmd("#SpawnItem BP_Cash 2 location {}".format(steam_id))
-                total = coins - pay
-                current_coins = update_coins(member.id, total)
-                await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
+            check = players_info(member.id)
+            if check is not None:
+                coins = players(member.id)[5]
+                steam_id = players(member.id)[3]
+                pay = 10000
+                if pay < coins:
+                    await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+                    cmd("#SpawnItem BP_Cash 2 location {}".format(steam_id))
+                    total = coins - pay
+                    current_coins = update_coins(member.id, total)
+                    await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
+                    return
+                elif coins < pay:
+                    await interaction.respond(content='ขออภัยยอดเงินในบัญชีของคุณไม่เพียงพอ')
                 return
-            elif coins < pay:
-                await interaction.respond(content='ขออภัยยอดเงินในบัญชีของคุณไม่เพียงพอ')
+            elif check is None:
+                await interaction.respond(content='ไม่พบข้อมูลผู้ใช้งานในระบบ')
+                return
             return
 
             # def check(res): return res.author == interaction.author and res.channel == interaction.channel msg =
@@ -107,8 +146,14 @@ class AdminCommand(commands.Cog):
             # return return
 
         elif btn == 'balance':
-            message = f'ยอดเงินทั้งหมด **{players(member.id)[5]}**'
-            await interaction.respond(content=message)
+            check = players_info(member.id)
+            if check is not None:
+                message = f'ยอดเงินทั้งหมด **{players(member.id)[5]}**'
+                await interaction.respond(content=message)
+                return
+            elif check is None:
+                await interaction.respond(content='ไม่พบข้อมูลผู้ใช้งานในระบบ')
+                return
             return
 
     @commands.command(name='servebutton')
