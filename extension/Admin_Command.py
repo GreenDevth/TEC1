@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from controller.scum_ai import listplayers, countplayers
-from database.Players_db import players
+from database.Players_db import players, update_coins
 
 
 class AdminCommand(commands.Cog):
@@ -69,12 +69,28 @@ class AdminCommand(commands.Cog):
                 ]
             )
         elif btn == 'b5000':
-            await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
-            # await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
+            coins = players(member.id)[5]
+            pay = 5000
+            if pay < coins:
+                await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+                total = coins - pay
+                current_coins = update_coins(member.id, total)
+                await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
+                return
+            elif coins < pay:
+                await interaction.respond(content='ขออภัยยอดเงินในบัญชีของคุณไม่เพียงพอ')
             return
         elif btn == 'b10000':
-            await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
-            # await discord.DMChannel.send(member, 'คุณถอนเงินจำนวน ${:,d}'.format(btn[1:]))
+            coins = players(member.id)[5]
+            pay = 10000
+            if pay < coins:
+                await interaction.respond(content='กรุณารับธนบัตร หลังจากได้รับข้อความจากระบบ')
+                total = coins - pay
+                current_coins = update_coins(member.id, total)
+                await discord.DMChannel.send(member, f'คุณได้ถอนเงินจำนวน **{pay}** ยอดเงินคงเหลือ **{current_coins}**')
+                return
+            elif coins < pay:
+                await interaction.respond(content='ขออภัยยอดเงินในบัญชีของคุณไม่เพียงพอ')
             return
 
             # def check(res): return res.author == interaction.author and res.channel == interaction.channel msg =
