@@ -1,7 +1,10 @@
+import asyncio
+
 import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
-from controller.scum_ai import start_game, login_game, goto_home, fixed_lost
+from controller.scum_ai import start_game, login_game, goto_home, fixed_lost, check_screen
+
 
 class ScumController(commands.Cog):
     def __init__(self, bot):
@@ -19,26 +22,22 @@ class ScumController(commands.Cog):
     async def start_game_controller(self, ctx):
         game_start = start_game()
         await ctx.reply(f'{game_start}', mention_author=False)
-    
 
     @commands.command(name='login')
     async def login_game_controller(self, ctx):
         game_login = login_game()
         await ctx.reply(f'{game_login}', mention_author=False)
-    
+
     @commands.command(name='lost')
     async def lost_game_controller(self, ctx):
         game_lost = fixed_lost()
         message = str(game_lost)
         await ctx.reply(f'{message}', mention_author=False)
-    
-    
 
     @commands.command(name='home')
     async def home_game_controller(self, ctx):
         game_home = goto_home()
         await ctx.reply(f'{game_home}', mention_author=False)
-    
 
     @commands.Cog.listener()
     async def on_button_click(self, interaction):
@@ -49,26 +48,32 @@ class ScumController(commands.Cog):
             message = str(game_start)
             await interaction.respond(content=f'{message}')
             return
-            
+
         elif btn == 'game_login':
             game_login = login_game()
             message = str(game_login)
             await interaction.respond(content=f'{message}')
             return
-            
+
         elif btn == 'goto_home':
             game_home = goto_home()
             message = str(game_home)
             await interaction.respond(content=f'{message}')
             return
-            
+
         elif btn == 'lost':
             print(f'{btn}')
             game_lost = fixed_lost()
             message = str(game_lost)
             await interaction.respond(content=f'{message}')
             return
-            
+        elif btn == 'check_drone':
+            await interaction.respond(content="โปรดรอสักครู่ บอทกำลังตรวจสอบสถานะโดรนส่งของให้คุณ")
+            check_screen()
+            # await asyncio.sleep(2)
+            # await interaction.channel.send(
+            #     file=discord.File('./controller')
+            # )
 
     @commands.command(name='controller')
     async def scum_controller(self, ctx):
@@ -83,6 +88,13 @@ class ScumController(commands.Cog):
                 ]
             ]
         )
+
+    @commands.command(name="check_drone")
+    async def check_drone(self, ctx):
+        await ctx.send(
+            components=[Button(style=ButtonStyle.red, label="CHECK DRON", emoji='📷', custom_id='check_drone')]
+        )
+
 
 def setup(bot):
     bot.add_cog(ScumController(bot))

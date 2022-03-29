@@ -152,3 +152,8 @@ def countplayers():
     text = df.to_string(index=False)
     msg = "ขณะนี้มีผู้เล่นออนไลน์ ทั้งหมด **{}** คน บอท 1 ตัว".format(number_of_rows)
     return msg.strip()
+
+
+def check_screen():
+    time.sleep(2)
+    ai.screenshot('check_1.png', region=(0, 0, 800, 600))
