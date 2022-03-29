@@ -93,8 +93,9 @@ class ScumController(commands.Cog):
     @commands.command(name="check_drone")
     async def check_drone(self, ctx):
         await ctx.send(
-            components=[Button(style=ButtonStyle.red, label="CHECK DRON", emoji='📷', custom_id='check_drone')]
+            components=[Button(style=ButtonStyle.red, label="CHECK DRONE", emoji='📷', custom_id='check_drone')]
         )
+        await ctx.message.delete()
 
 
 def setup(bot):
