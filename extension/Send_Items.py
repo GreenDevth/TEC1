@@ -1,6 +1,6 @@
 from discord.ext import commands
 from database.Store_db import get_spawner_code
-from Controller.scum_ai import cmd
+from controller.scum_ai import cmd
 import time
 from database.Players_db import players_info
 
