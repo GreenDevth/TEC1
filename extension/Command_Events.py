@@ -4,7 +4,7 @@ from datetime import datetime
 
 from discord.ext import commands
 
-from Controller.scum_ai import cmd, get_location
+from controller.scum_ai import cmd, get_location
 from database.Store_db import get_daily_pack_from_shopping_cart, get_dailypack_spawner_code
 from database.Store import *
 now = datetime.now()
