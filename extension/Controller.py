@@ -70,10 +70,11 @@ class ScumController(commands.Cog):
         elif btn == 'check_drone':
             await interaction.respond(content="โปรดรอสักครู่ บอทกำลังตรวจสอบสถานะโดรนส่งของให้คุณ")
             check_screen()
-            # await asyncio.sleep(2)
-            # await interaction.channel.send(
-            #     file=discord.File('./controller')
-            # )
+            await asyncio.sleep(2)
+            await interaction.channel.send(
+                "โปรดสังเกตุที่รูปเพื่อพิจารณาว่า โดรนกำลังออนไลน์อยู่หรือไม่",
+                file=discord.File('check_1.png')
+            )
 
     @commands.command(name='controller')
     async def scum_controller(self, ctx):

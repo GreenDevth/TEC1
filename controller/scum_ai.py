@@ -156,4 +156,4 @@ def countplayers():
 
 def check_screen():
     time.sleep(2)
-    ai.screenshot('check_1.png', region=(0, 0, 800, 600))
+    ai.screenshot('check_1.png', region=(0, 0, 600, 400))
