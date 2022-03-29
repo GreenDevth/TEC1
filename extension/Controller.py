@@ -73,7 +73,7 @@ class ScumController(commands.Cog):
             await asyncio.sleep(2)
             await interaction.channel.send(
                 "โปรดสังเกตุที่รูปเพื่อพิจารณาว่า โดรนกำลังออนไลน์อยู่หรือไม่",
-                file=discord.File('check_1.png')
+                file=discord.File('check_1.png'), delete_after=10
             )
 
     @commands.command(name='controller')
