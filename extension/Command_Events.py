@@ -20,7 +20,7 @@ class CommandEvents(commands.Cog):
     async def on_message(self, message):
         member = message.author
         cmd_channel = self.bot.get_channel(927796274676260944)
-        location_command = self.bot.get_channel(948477565251780658)
+        location_command = self.bot.get_channel(961454973332377681)
         if message.content.startswith('.set'):
             if message.author.guild_permissions.administrator:
                 msg = message.content[5:]
