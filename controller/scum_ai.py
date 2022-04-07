@@ -36,7 +36,7 @@ def login_game():
     ai.keyUp('ctrl')
     ai.moveTo(x=75, y=209)
     ai.click()
-    msg = "กำลัง Login เกมส์เข้าสู่เซิร์ฟเวอร์"
+    msg = "กำลัง Login เกมส์เข้าสู่เซิร์ฟเวอร์อาจใช้เวลาราว 1-2 นาที"
     return msg.strip()
 
 
@@ -87,7 +87,7 @@ def fixed_lost():
     ai.write("#ListSpawnedVehicles true")
     time.sleep(1)
     ai.press('enter')
-    msg = "กำลัง Login เข้าเซิร์ฟเวอร์อีกครั้ง"
+    msg = "กำลัง Login เข้าเซิร์ฟเวอร์อีกครั้งอาจใช้เวลาราว 1-2 นาที"
     return msg.strip()
 
 

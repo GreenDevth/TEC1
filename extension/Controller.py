@@ -46,26 +46,30 @@ class ScumController(commands.Cog):
         if btn == 'game_start':
             game_start = start_game()
             message = str(game_start)
-            await interaction.respond(content=f'{message}')
+            await interaction.respond(content="กำลังเปิดโปรแกรมเกมส์")
+            await interaction.channel.send(content=f'{message}', delete_after=5)
             return
 
         elif btn == 'game_login':
             game_login = login_game()
             message = str(game_login)
-            await interaction.respond(content=f'{message}')
+            await interaction.respond(content=f'กำลังทำการล็อคอินเข้าเซิร์ฟเวอร์')
+            await interaction.channel.send(content=f'{message}', delete_after=5)
             return
 
         elif btn == 'goto_home':
             game_home = goto_home()
             message = str(game_home)
-            await interaction.respond(content=f'{message}')
+            await interaction.respond(content=f'ระบบกำลังส่งโดรนไปประจำตำแหน่ง')
+            await interaction.channel.send(content=f'{message}', delete_after=5)
             return
 
         elif btn == 'lost':
             print(f'{btn}')
             game_lost = fixed_lost()
             message = str(game_lost)
-            await interaction.respond(content=f'{message}')
+            await interaction.respond(content=f'ระบบกับแก้ปัญหาการหลุดออกจากเกมส์ของโดรน')
+            await interaction.channel.send(content=f'{message}', delete_after=5)
             return
         elif btn == 'check_drone':
             await interaction.respond(content="โปรดรอสักครู่ บอทกำลังตรวจสอบสถานะโดรนส่งของให้คุณ")
